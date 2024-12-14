@@ -28,6 +28,25 @@ const Sidebar = ({ docs }) => {
       matchesDoc.filter((doc) => doc.parent),
       ({ parent }) => parent
     );
+
+    const nonRootsKey = Reflect.ownKeys(nonRoots);
+    nonRootsKey.forEach((key) => {
+      const foundRoots = roots.find((root) => root.id === key);
+      if (!foundRoots) {
+        const foundInDocs = docs.find((doc) => doc.id === key);
+        roots.push(foundInDocs);
+      }
+    });
+    roots.sort((a, b) => {
+      if (a.order < b.order) {
+        return -1;
+      }
+      if (a.order > b.order) {
+        return 1;
+      }
+      return 0;
+    });
+
     setRootNods([...roots]);
     setNonRootNodeGrouped({ ...nonRoots });
   }, [pathName]);
