@@ -4,7 +4,6 @@ import { getDocumentByAuthors } from "@/utils/doc-utils";
 const AuthorPage = ({ params: { name } }) => {
   const docs = getDocuments();
   const matchesDoc = getDocumentByAuthors(docs, name);
-  console.log(matchesDoc);
 
   return <ContentDisplay id={matchesDoc[0]?.id} />;
 };
